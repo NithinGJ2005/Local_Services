@@ -1,0 +1,26 @@
+# Aguntaka Pahachana Kendra - Local Services Staff Dashboard
+# Apache Configuration for XAMPP
+
+DirectoryIndex index.php
+
+# Prevent directory listings
+Options -Indexes
+
+# Protect database and config directories from direct URL exposure
+<FilesMatch "^(schema\.sql|\.env|composer\.lock)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Enable UTF-8 encoding
+AddDefaultCharset UTF-8
+
+# Prevent browser stale caching of scripts and stylesheets during active development
+<FilesMatch "\.(js|css)$">
+    <IfModule mod_headers.c>
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires 0
+    </IfModule>
+</FilesMatch>
+
