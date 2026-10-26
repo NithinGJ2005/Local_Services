@@ -9,7 +9,7 @@ if (!defined('APP_INIT')) {
     define('APP_INIT', true);
 }
 
-// Database Credentials (Standard XAMPP default is host: localhost, user: root, password: "")
+// Database Credentials (Standard XAMPP default: host: localhost, user: root, password: "")
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
 define('DB_NAME', getenv('DB_NAME') ?: 'aguntaka_local_services');
@@ -17,16 +17,18 @@ define('DB_USER', getenv('DB_USER') ?: 'root');
 define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
 define('DB_CHARSET', 'utf8mb4');
 
-class Database {
+class Database
+{
     private static ?PDO $instance = null;
 
-    public static function getConnection(): PDO {
+    public static function getConnection(): PDO
+    {
         if (self::$instance === null) {
             $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
             $options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::ATTR_EMULATE_PREPARES => false,
             ];
 
             try {
@@ -50,7 +52,8 @@ class Database {
     /**
      * Automatic Database and Tables initialisation from schema.sql
      */
-    public static function initializeDatabase(): bool {
+    public static function initializeDatabase(): bool
+    {
         try {
             $rootDsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";charset=" . DB_CHARSET;
             $rootPdo = new PDO($rootDsn, DB_USER, DB_PASS, [
@@ -74,6 +77,7 @@ class Database {
 /**
  * Log activity helper (No-op: service_activity_logs table removed)
  */
-function logServiceActivity(int $serviceId, ?int $staffId, string $action, string $details = ''): bool {
+function logServiceActivity(int $serviceId, ?int $staffId, string $action, string $details = ''): bool
+{
     return true;
 }
